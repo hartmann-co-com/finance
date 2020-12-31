@@ -203,12 +203,12 @@ const Day = ({day, year, month, index}) => {
                     <Number decimal={day.balance}/>
                 </label>
             </div>
-            {self.expanded === true && <Records values={day.records}/>}
+            {self.expanded === true && <Records values={day.records} dispatch={true}/>}
         </>
     );
 };
 
-const Records = ({values}) => {
+const Records = ({values, dispatch}) => {
     // noinspection JSXNamespaceValidation
     return (
         <>
@@ -219,12 +219,12 @@ const Records = ({values}) => {
                             i % 2 === 0
                                 ? <div style={flexContainer.spaceBetween} className="odd">
                                     <li style={listStyleNone}>
-                                        <Record record={r} index={i}/>
+                                        <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
                                 </div>
                                 : <div style={flexContainer.spaceBetween} className="even">
                                     <li style={listStyleNone}>
-                                        <Record record={r} index={i}/>
+                                        <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
                                 </div>)
                         : null
@@ -234,7 +234,7 @@ const Records = ({values}) => {
     );
 };
 
-const Record = ({record, accountEditable = false, balanceEditable = false, index}) => {
+const Record = ({record, accountEditable = false, balanceEditable = false, index, dispatchEnabled = false}) => {
     const [getStore, dispatch] = state;
     const date = record.timestamp ? new Date(record.timestamp) : new Date();
 
@@ -274,19 +274,23 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
                                     ? <input type="checkbox" id={`isBank_${record.id}`}
                                              onChange={event => {
                                                  record.isBank = Boolean(event.target.checked);
-                                                 dispatch({
-                                                     type: Actions.record,
-                                                     payload: {index: index, value: record}
-                                                 });
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
                                              }}
                                              checked/>
                                     : <input type="checkbox" id={`isBank_${record.id}`}
                                              onChange={event => {
                                                  record.isBank = Boolean(event.target.checked);
-                                                 dispatch({
-                                                     type: Actions.record,
-                                                     payload: {index: index, value: record}
-                                                 });
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
                                              }}
                                     />
                             }
@@ -298,19 +302,23 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
                                     ? <input type="checkbox" id={`ìsStock_${record.id}`}
                                              onChange={event => {
                                                  record.isStock = event.target.checked;
-                                                 dispatch({
-                                                     type: Actions.record,
-                                                     payload: {index: index, value: record}
-                                                 });
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
                                              }}
                                              checked/>
                                     : <input type="checkbox" id={`ìsStock_${record.id}`}
                                              onChange={event => {
                                                  record.isStock = event.target.checked;
-                                                 dispatch({
-                                                     type: Actions.record,
-                                                     payload: {index: index, value: record}
-                                                 });
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
                                              }}
                                     />
                             }

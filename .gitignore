@@ -25,4 +25,4 @@ yarn-error.log*
 # IntelliJ IDEA
 .idea
 
-nodes_modules
+node_modules
