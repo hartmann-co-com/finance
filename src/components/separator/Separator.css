@@ -1,0 +1,29 @@
+.separator-empty {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid;
+    margin-right: 1em;
+    margin-left: 1em;
+    min-height: 1.5em;
+    max-height: 1.5em;
+}
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 1em;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #878787;
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
+}
