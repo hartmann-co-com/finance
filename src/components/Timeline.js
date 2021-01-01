@@ -256,11 +256,9 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
         <>
             <div style={{display: 'grid', 'grid-template-columns': '33% 33% 33%'}}>
                 <div style={{...flexStyle}}>
-                    <label style={small}>
-                        <DisplayDate date={() => date}/>
-                    </label>
+                    <DisplayDate date={() => date} small/>
                     {accountEditable
-                        ? <input type="text" value={record.account}/>
+                        ? <input type="text" onChange={event => record.account = event.target.value} value={record.account}/>
                         : <label>
                             {record.account}
                         </label>
@@ -327,7 +325,7 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
                     </div>
                 </div>
                 <label style={{margin: '0 0.7em 0 0', 'flex-grow': 3, "text-align": 'right'}}>
-                    <Number decimal={record.balance} editable={balanceEditable}/>
+                    <Number decimal={record.balance} onChange={event => record.balance = event.target.value} editable={balanceEditable}/>
                 </label>
             </div>
         </>
@@ -402,6 +400,7 @@ export const TimelineList = () => {
                                             ? <div style={flexContainer.spaceBetween} className="odd">
                                                 <li style={listStyle}>
                                                     <Record record={r}
+                                                            onAccountChange={(event, id) => setSelf('entries', e => e.find(v => v.id === id))}
                                                             balanceEditable={r.balanceEditable}
                                                             accountEditable={r.accountEditable}/>
                                                 </li>
@@ -418,7 +417,7 @@ export const TimelineList = () => {
                         </div>
                         <div style={{...flexContainer.marginRight, 'justify-content': 'flex-end'}}>
                             <SaveBtn onClick={() => {
-                                alert('save')
+                                dispatch({type: Actions.list.add, payload: self.entries})
                             }}/>
                             <Spacer/>
                             <ClearBtn onClick={() => setSelf('entries', e => [])}/>
@@ -432,7 +431,7 @@ export const TimelineList = () => {
                             id: nanoid(),
                             timestamp: new Date().toISOString(),
                             balance: 0.0,
-                            account: 'account',
+                            account: '',
                             currency: 'EUR',
                             isBank: true,
                             isStock: false,

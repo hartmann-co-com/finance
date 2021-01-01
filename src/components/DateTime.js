@@ -16,13 +16,19 @@ export const MONTHS = {
     11: "December"
 }
 
-export const DisplayDate = ({date}) => {
+export const DisplayDate = ({date, small}) => {
+    const style = {...flexContainer.noPadding};
+
+    if (small) {
+        style["font-size"] = 'x-small';
+    }
+
     // noinspection JSXNamespaceValidation
     return <>
-        <div style={flexContainer.noPadding}>
-            {date().toLocaleDateString()}
+        <div style={style}>
+            <div style={{display: 'flex'}}>{date().toLocaleDateString()}</div>
             <Spacer half={true}/>
-            {date().toLocaleTimeString()}
+            <div style={{display: 'flex'}}>{date().toLocaleTimeString()}</div>
         </div>
     </>;
 };

@@ -1,12 +1,23 @@
 import {Actions} from "./actions";
+import {displayBalances, processBalances, processRecord} from "../csv/csv";
 
 export const reducer = (state, action = {}) => {
     switch (action.type) {
         case Actions.init:
             return action.payload;
         //region list
-        case Actions.list.add:
-            return {...state, list: [...state.list, action.payload]};
+        case Actions.list.add: {
+            const records = action.payload;
+            const result = {...state};
+
+            records.forEach(r => processRecord(r, result.list, result.records, result.accounts, new Set(), new Set(), new Set()));
+
+            processBalances(result.list);
+
+            displayBalances(result.list, result.records);
+
+            return result;
+        }
         case Actions.list.remove:
             return {...state, list: state.list.filter(el => el.id === action.payload.id)}
         case Actions.list.load: {

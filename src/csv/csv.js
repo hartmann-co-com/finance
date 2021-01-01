@@ -24,93 +24,13 @@ export const processText = (text) => {
             const bankAccounts = new Set();
             const stockAccounts = new Set();
             result.forEach((v, i) => {
-                const date = new Date(v.timestamp);
-                let year = list.find(y => y.year === date.getUTCFullYear());
-
-                if (!year) {
-                    year = {
-                        year: date.getUTCFullYear(),
-                        months: [],
-                        balance: 0,
-                        currency: 'EUR',
-                        expanded: false
-                    };
-                    list.push(year);
-                }
-
-                let month = year.months.find(m => m.month === date.getUTCMonth());
-
-                if (!month) {
-                    month = {
-                        month: date.getUTCMonth(),
-                        days: [],
-                        balance: 0,
-                        currency: 'EUR',
-                        expanded: false
-                    }
-                    year.months.push(month);
-                }
-
-                let day = month.days.find(d => d.day === date.getUTCDate());
-
-                if (!day) {
-                    day = {
-                        day: date.getUTCDate(),
-                        records: [],
-                        balance: 0,
-                        currency: 'EUR',
-                        expanded: false
-                    }
-                    month.days.push(day);
-                }
-
-                let record = day.records.find(r => r.id === v.id);
-
-                if (!record) {
-                    record = {
-                        id: v.id ? v.id : nanoid(),
-                        timestamp: v.timestamp,
-                        balance: v.balance,
-                        account: v.account,
-                        currency: 'EUR',
-                        isBank: v.isBank,
-                        isStock: v.isStock
-                    };
-                    day.records.push(record);
-                    const key = v.timestamp + '_' + v.account;
-                    if (!recordSet.has(key)) {
-                        day.balance += +v.balance;
-                        recordSet.add(key);
-                        records.push(record);
-                    }
-                }
-
-                if (v.isBank) {
-                    bankAccounts.add(v.account);
-                }
-
-                if (v.isStock) {
-                    stockAccounts.add(v.account);
-                }
-
-                if (!accounts.includes(v.account)) {
-                    accounts.push(v.account);
-                }
+                processRecord(v, list, records, accounts, bankAccounts, stockAccounts, recordSet);
             });
 
-            list.forEach(y => {
-                y.months.forEach(m => {
-                    const mSum = m.days.reduce((p, c) => p + c.balance, 0);
-                    m.balance = mSum / m.days.length;
-                });
-                const ySum = y.months.reduce((p, c) => p + c.balance, 0);
-                y.balance = ySum / y.months.length;
-            })
+            processBalances(list);
 
-            console.table(list);
-            console.table(list[0].months);
-            console.table(list[0].months[0].days);
-            console.table(records);
+            displayBalances(list, records);
+
             dispatch({type: Actions.list.load, payload: list});
             dispatch({type: Actions.records, payload: records});
             dispatch({type: Actions.accounts, payload: accounts});
@@ -119,6 +39,99 @@ export const processText = (text) => {
 
     }
 }
+
+export const processBalances = (list) => {
+    list.forEach(y => {
+        y.months.forEach(m => {
+            const mSum = m.days.reduce((p, c) => p + c.balance, 0);
+            m.balance = mSum / m.days.length;
+        });
+        const ySum = y.months.reduce((p, c) => p + c.balance, 0);
+        y.balance = ySum / y.months.length;
+    });
+};
+
+export const displayBalances = (list, records) => {
+    console.table(list);
+    console.table(list[0].months);
+    console.table(list[0].months[0].days);
+    console.table(records);
+};
+
+export const processRecord = (v, list, records, accounts, bankAccounts, stockAccounts, recordSet) => {
+    const date = new Date(v.timestamp);
+    let year = list.find(y => y.year === date.getUTCFullYear());
+
+    if (!year) {
+        year = {
+            year: date.getUTCFullYear(),
+            months: [],
+            balance: 0,
+            currency: 'EUR',
+            expanded: false
+        };
+        list.push(year);
+    }
+
+    let month = year.months.find(m => m.month === date.getUTCMonth());
+
+    if (!month) {
+        month = {
+            month: date.getUTCMonth(),
+            days: [],
+            balance: 0,
+            currency: 'EUR',
+            expanded: false
+        }
+        year.months.push(month);
+    }
+
+    let day = month.days.find(d => d.day === date.getUTCDate());
+
+    if (!day) {
+        day = {
+            day: date.getUTCDate(),
+            records: [],
+            balance: 0,
+            currency: 'EUR',
+            expanded: false
+        }
+        month.days.push(day);
+    }
+
+    let record = day.records.find(r => r.id === v.id);
+
+    if (!record) {
+        record = {
+            id: v.id ? v.id : nanoid(),
+            timestamp: v.timestamp,
+            balance: v.balance,
+            account: v.account,
+            currency: 'EUR',
+            isBank: v.isBank,
+            isStock: v.isStock
+        };
+        day.records.push(record);
+        const key = v.timestamp + '_' + v.account;
+        if (!recordSet.has(key)) {
+            day.balance += +v.balance;
+            recordSet.add(key);
+            records.push(record);
+        }
+    }
+
+    if (v.isBank) {
+        bankAccounts.add(v.account);
+    }
+
+    if (v.isStock) {
+        stockAccounts.add(v.account);
+    }
+
+    if (!accounts.includes(v.account)) {
+        accounts.push(v.account);
+    }
+};
 
 export const importFunc = (event) => {
     if (event && event.target && event.target.files && event.target.files.length > 0) {

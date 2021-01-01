@@ -3,13 +3,14 @@ const formatter = new Intl.NumberFormat('de-DE', {
     currency: 'EUR'
 });
 
-const Decimal = ({decimal, editable = false}) => {
+const Decimal = ({decimal, editable = false, onChange}) => {
     // noinspection JSXNamespaceValidation
     return (
         decimal !== null
             ? (
                 editable === true
                     ? (<><input type="number"
+                                onChange={onChange}
                                 value={decimal}/></>)
                     : (<>{formatter.format(decimal)}</>)
             )
@@ -17,22 +18,22 @@ const Decimal = ({decimal, editable = false}) => {
     );
 };
 
-const Int = ({int, editable = false}) => {
+const Int = ({int, editable = false, onChange}) => {
     return (
         int !== null && int !== undefined
             ? (
                 editable === true
-                    ? (<><input type="number" value={int}/></>)
+                    ? (<><input type="number" onChange={onChange} value={int}/></>)
                     : (<>{int}</>)
             )
             : null
     );
 }
 
-export const Number = ({decimal, int, editable = false}) => {
+export const Number = ({decimal, int, editable = false, onChange}) => {
     return (
         <>
-            <Decimal decimal={decimal} editable={editable}/>
+            <Decimal decimal={decimal} editable={editable} onChange={onChange}/>
             <Int int={int} editable={editable}/>
         </>
     );
