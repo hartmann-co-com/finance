@@ -370,19 +370,29 @@ const NewRecord = ({record, accountEditable = false, balanceEditable = false, in
     const flexStyle = {
         ...flexContainer.noPadding,
         'flex-direction': 'column',
-        'align-items': 'flex-start',
-        margin: '0 0 0 1em'
+        'align-items': 'flex-start'
     };
     let textRight = {'text-align': 'right'};
     let textLeft = {'text-align': 'left'};
     const flexEndStyle = {
         ...flexContainer.noPadding,
-        'align-items': 'flex-end'
+        'align-items': 'flex-end',
+        'margin-left': '2em'
+    }
+    let optionGridColumns = {'grid-template-columns': '50% 50%'};
+    if (window.innerWidth < 450) {
+        console.log(window.innerWidth);
+        optionGridColumns = {'grid-template-columns': '100%'};
     }
     // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
     return (
         <>
-            <div style={{display: 'grid', 'grid-template-columns': '50% 50%', padding: '0.25em 0 0.25em 0'}}>
+            <div style={{
+                display: 'grid',
+                'grid-template-columns': 'calc(50% - 0.5em) calc(50% - 0.5em)',
+                padding: '0.25em 0 0.25em 0',
+                'grid-gap': '1em'
+            }}>
                 <label style={{...textRight}}>Date:</label>
                 <label><DisplayDate date={() => date} small/></label>
 
@@ -392,88 +402,71 @@ const NewRecord = ({record, accountEditable = false, balanceEditable = false, in
                             editable={balanceEditable}/>
                 </label>
             </div>
-            {
-                record.showOptions === true
-                    ? <div style={{display: 'grid', 'grid-template-columns': '100%', padding: '0.25em 0 0.25em 0'}}>
-                        <Separator><a onClick={() => {
-                            dispatch({
-                                type: Actions.record,
-                                payload: {index: index, value: {...record, showOptions: !record.showOptions}}
-                            });
-                        }} style={{cursor: 'pointer'}}>less</a></Separator>
-                        <div style={{...flexStyle}}>
-                            <label style={{color: '#878787', padding: '0.25em'}}>Options</label>
-                            <div style={{...flexStyle}}>
-                                <div style={{...flexEndStyle, 'text-align': 'left'}}>
-                                    {
-                                        record.isBank === true
-                                            ? <input type="checkbox" id={`isBank_${record.id}`}
-                                                     disabled={true}
-                                                     onChange={event => {
-                                                         record.isBank = Boolean(event.target.checked);
-                                                         if (dispatchEnabled) {
-                                                             dispatch({
-                                                                 type: Actions.record,
-                                                                 payload: {index: index, value: record}
-                                                             });
-                                                         }
-                                                     }}
-                                                     checked/>
-                                            : <input type="checkbox" id={`isBank_${record.id}`}
-                                                     disabled={true}
-                                                     onChange={event => {
-                                                         record.isBank = Boolean(event.target.checked);
-                                                         if (dispatchEnabled) {
-                                                             dispatch({
-                                                                 type: Actions.record,
-                                                                 payload: {index: index, value: record}
-                                                             });
-                                                         }
-                                                     }}
-                                            />
-                                    }
-                                    <label for={`isBank_${record.id}`}>is bank account</label>
-                                </div>
-                                <div style={flexEndStyle}>
-                                    {
-                                        record.isStock === true
-                                            ? <input type="checkbox" id={`ìsStock_${record.id}`}
-                                                     disabled={true}
-                                                     onChange={event => {
-                                                         record.isStock = event.target.checked;
-                                                         if (dispatchEnabled) {
-                                                             dispatch({
-                                                                 type: Actions.record,
-                                                                 payload: {index: index, value: record}
-                                                             });
-                                                         }
-                                                     }}
-                                                     checked/>
-                                            : <input type="checkbox" id={`ìsStock_${record.id}`}
-                                                     disabled={true}
-                                                     onChange={event => {
-                                                         record.isStock = event.target.checked;
-                                                         if (dispatchEnabled) {
-                                                             dispatch({
-                                                                 type: Actions.record,
-                                                                 payload: {index: index, value: record}
-                                                             });
-                                                         }
-                                                     }}
-                                            />
-                                    }
-                                    <label for={`ìsStock_${record.id}`}>is stock</label>
-                                </div>
-                            </div>
+            <div style={{display: 'grid', 'grid-template-columns': '100%', padding: '0.25em 0 0.25em 0'}}>
+                <div style={{...flexStyle}}>
+                    <Separator><label style={{color: '#878787', padding: '0.25em'}}>Options</label></Separator>
+                    <div style={{display: 'grid', width: '100%', ...optionGridColumns}}>
+                        <div style={{...flexEndStyle, 'text-align': 'left'}}>
+                            {
+                                record.isBank === true
+                                    ? <input type="checkbox" id={`isBank_${record.id}`}
+                                             onChange={event => {
+                                                 record.isBank = Boolean(event.target.checked);
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
+                                             }}
+                                             checked/>
+                                    : <input type="checkbox" id={`isBank_${record.id}`}
+                                             onChange={event => {
+                                                 record.isBank = Boolean(event.target.checked);
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
+                                             }}
+                                    />
+                            }
+                            <Spacer half={true}/>
+                            <label for={`isBank_${record.id}`}>is bank account</label>
+                        </div>
+                        <div style={flexEndStyle}>
+                            {
+                                record.isStock === true
+                                    ? <input type="checkbox" id={`ìsStock_${record.id}`}
+                                             onChange={event => {
+                                                 record.isStock = event.target.checked;
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
+                                             }}
+                                             checked/>
+                                    : <input type="checkbox" id={`ìsStock_${record.id}`}
+                                             onChange={event => {
+                                                 record.isStock = event.target.checked;
+                                                 if (dispatchEnabled) {
+                                                     dispatch({
+                                                         type: Actions.record,
+                                                         payload: {index: index, value: record}
+                                                     });
+                                                 }
+                                             }}
+                                    />
+                            }
+                            <Spacer half={true}/>
+                            <label for={`ìsStock_${record.id}`}>is stock</label>
                         </div>
                     </div>
-                    : <Separator><a onClick={() => {
-                        dispatch({
-                            type: Actions.record,
-                            payload: {index: index, value: {...record, showOptions: !record.showOptions}}
-                        });
-                    }} style={{cursor: 'pointer'}}>more</a></Separator>
-            }
+                </div>
+            </div>
         </>
     );
 }

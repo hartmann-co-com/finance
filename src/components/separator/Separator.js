@@ -1,7 +1,8 @@
 import './Separator.css';
 
 export const separator = {
-    color: '#cfcfcf'
+    color: '#cfcfcf',
+    width: 'calc(100% - 2em)'
 };
 
 export const Separator = (props) => {
