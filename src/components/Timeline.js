@@ -17,7 +17,7 @@ const listStyle = {'list-style-type': 'decimal', width: '100%'};
 const listStyleNone = {...listStyle, 'list-style-type': 'none'};
 
 const Timeline = () => {
-    const [getStore, dispatch] = state;
+    const [getStore] = state;
     // noinspection JSXNamespaceValidation
     return (
         <>
@@ -64,6 +64,7 @@ const Timeline = () => {
 
 const Year = ({year, index}) => {
     const [self, setSelf] = createState({expanded: year.expanded});
+    // noinspection JSUnusedLocalSymbols
     const [getStore, dispatch] = state;
     // noinspection JSCheckFunctionSignatures, JSXNamespaceValidation
     return (
@@ -94,6 +95,7 @@ const Year = ({year, index}) => {
 
 const Month = ({month, year, index}) => {
     const [self, setSelf] = createState({expanded: month.expanded});
+    // noinspection JSUnusedLocalSymbols
     const [getStore, dispatch] = state;
     // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
     return (
@@ -178,6 +180,7 @@ const Days = ({values, year, month}) => {
 
 const Day = ({day, year, month, index}) => {
     const [self, setSelf] = createState({expanded: day.expanded});
+    // noinspection JSUnusedLocalSymbols
     const [getStore, dispatch] = state;
     // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
     return (
@@ -235,6 +238,7 @@ const Records = ({values, dispatch}) => {
 };
 
 const Record = ({record, accountEditable = false, balanceEditable = false, index, dispatchEnabled = false}) => {
+    // noinspection JSUnusedLocalSymbols
     const [getStore, dispatch] = state;
     const date = record.timestamp ? new Date(record.timestamp) : new Date();
 
@@ -248,6 +252,7 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
         ...flexContainer.noPadding,
         'align-items': 'flex-end'
     }
+    // noinspection JSUnusedLocalSymbols
     const small = {
         'font-size': 'x-small'
     }
@@ -335,8 +340,7 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
 
 // region SaveInfos
 export const SaveInfos = () => {
-    const [getStore, dispatch] = state;
-    const width = window.innerWidth > getStore().minWidth;
+    const [getStore] = state;
     // noinspection JSXNamespaceValidation
     return (
         <>
@@ -379,9 +383,10 @@ export const TimelineLast = () => {
 
 // region Today
 export const TimelineList = () => {
-        const [getStore, dispatch] = state;
+        // noinspection JSUnusedLocalSymbols
+    const [getStore, dispatch] = state;
         const [self, setSelf] = createState({entries: []});
-        // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
+    // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures,JSUnusedLocalSymbols
         return (
             <>
                 <SaveInfos/>

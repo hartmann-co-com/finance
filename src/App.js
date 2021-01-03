@@ -72,6 +72,6 @@ function App() {
             </Content>
         </>
     );
-};
+}
 
 export default App;

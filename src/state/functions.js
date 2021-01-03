@@ -19,6 +19,7 @@ export const saveList = () => {
 };
 
 export const clearList = () => {
+    // noinspection JSUnusedLocalSymbols
     const [getStore, dispatch] = state;
 
     localStorage.setItem("store.list", JSON.stringify([]));

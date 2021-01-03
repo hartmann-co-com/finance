@@ -75,6 +75,7 @@ function registerValidSW(swUrl, config) {
               );
 
               // Execute callback
+              // noinspection JSUnresolvedVariable
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
               }
@@ -85,6 +86,7 @@ function registerValidSW(swUrl, config) {
               console.log('Content is cached for offline use.');
 
               // Execute callback
+              // noinspection JSUnresolvedVariable
               if (config && config.onSuccess) {
                 config.onSuccess(registration);
               }
@@ -129,7 +131,7 @@ function checkValidServiceWorker(swUrl, config) {
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
-      registration.unregister();
+      registration.unregister().finally(() => console.log("unregistered serviceWorker"));
     });
   }
 }

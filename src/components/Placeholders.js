@@ -6,6 +6,7 @@ const Common = ({css}) => {
 //endregion common
 
 // region image
+// noinspection JSUnusedGlobalSymbols
 export const ImgPlaceholder = () => {
     return <Common css="fa fa-image"/>;
 };
@@ -23,10 +24,12 @@ export const ArrowRightPlaceholder = () => {
     return <Common css="fa fa-chevron-right"/>;
 };
 
+// noinspection JSUnusedGlobalSymbols
 export const ArrowLeftPlaceholder = () => {
     return <Common css="fa fa-chevron-left"/>;
 };
 
+// noinspection JSUnusedGlobalSymbols
 export const ArrowUpPlaceholder = () => {
     return <Common css="fa fa-chevron-up"/>;
 };

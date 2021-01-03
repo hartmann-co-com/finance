@@ -1,10 +1,9 @@
 import {EuroPlaceholder, FileExportPlaceholder, FileImportPlaceholder, Spacer} from "./Placeholders";
 import {flexContainer} from "../flex";
-import {state} from "../App";
 
 // region Header
 export const Header = () => {
-    const [getStore, dispatch] = state;
+    // const [getStore, dispatch] = state;
     // noinspection JSXNamespaceValidation
     return (
         <div style={flexContainer} class="shadow">

@@ -11,6 +11,7 @@ const parserOptions = {
 
 //region import
 export const processText = (text) => {
+    // noinspection JSUnusedLocalSymbols
     const [getStore, dispatch] = state;
 
     if (text && text.length > 0) {
@@ -23,6 +24,7 @@ export const processText = (text) => {
             const accounts = [];
             const bankAccounts = new Set();
             const stockAccounts = new Set();
+            // noinspection JSUnusedLocalSymbols
             result.forEach((v, i) => {
                 processRecord(v, list, records, accounts, bankAccounts, stockAccounts, recordSet);
             });
@@ -137,6 +139,7 @@ export const importFunc = (event) => {
     if (event && event.target && event.target.files && event.target.files.length > 0) {
         const file = event.target.files.item(0);
         const reader = new FileReader();
+        // noinspection JSUnusedLocalSymbols
         reader.onload = (e) => {
             processText(reader.result);
         };
@@ -147,7 +150,7 @@ export const importFunc = (event) => {
 
 //region export
 export const exportFunc = () => {
-    const [getStore, dispatch] = state;
+    const [getStore] = state;
     const now = new Date();
     const dateAsString = `${now.toLocaleDateString()}_${now.toLocaleTimeString()}`;
 
@@ -163,7 +166,6 @@ const downloadCSV = ({filenameArg, columnsArg, dataArg}) => {
     const dateAsString = `${now.toLocaleDateString()}_${now.toLocaleTimeString()}`;
 
     let filename = filenameArg || `export_${dateAsString}.csv`;
-    let columns = columnsArg || null;
 
     if (dataArg == null || dataArg.length <= 0) return;
 

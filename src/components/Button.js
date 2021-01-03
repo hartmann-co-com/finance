@@ -51,7 +51,7 @@ const Common = ({onClick, children, input, inputType, inputOnChange}) => {
 
 // region save-btn
 export const SaveBtn = ({onClick}) => {
-    const [getStore, dispatch] = state;
+    const [getStore] = state;
     const width = window.innerWidth > getStore().minWidth;
     // noinspection JSXNamespaceValidation
     return (
@@ -68,7 +68,7 @@ export const SaveBtn = ({onClick}) => {
 
 // region clear-btn
 export const ClearBtn = ({onClick}) => {
-    const [getStore, dispatch] = state;
+    const [getStore] = state;
     const width = window.innerWidth > getStore().minWidth;
     // noinspection JSXNamespaceValidation
     return (
@@ -129,6 +129,7 @@ export const AddBtn = ({onClick, text}) => {
 // endregion add-btn
 
 // region edit-btn
+// noinspection JSUnusedGlobalSymbols
 export const EditBtn = ({onClick}) => {
     // noinspection JSXNamespaceValidation
     return (
@@ -144,6 +145,7 @@ export const EditBtn = ({onClick}) => {
 // endregion edit-btn
 
 // region menu-btn
+// noinspection JSUnusedGlobalSymbols
 export const SideMenuBtn = ({onClick}) => {
     return (
         <Common onClick={onClick}>
