@@ -83,7 +83,7 @@ const Year = ({year, index}) => {
                         style={{margin: '0 0 0 1em'}}>{year.year}</label>
                 </div>
 
-                <label style={{margin: '0 1em 0 0', "padding-right": '1.5em'}}>
+                <label style={{margin: '0 1.5em 0 0', "padding-right": '1.5em'}}>
                     <Number decimal={year.balance}/>
                 </label>
             </div>
@@ -115,7 +115,7 @@ const Month = ({month, year, index}) => {
                     <label
                         style={{margin: '0 0 0 1em'}}>{MONTHS[month.month]}</label>
                 </div>
-                <label style={{margin: '0 1em 0 0', "padding-right": '1em'}}>
+                <label style={{margin: '0 1em 0 0', "padding-right": '1.5em'}}>
                     <Number decimal={month.balance}/>
                 </label>
             </div>
@@ -199,7 +199,7 @@ const Day = ({day, year, month, index}) => {
                     <label
                         style={{margin: '0 0 0 1em'}}>Day {day.day}</label>
                 </div>
-                <label style={{margin: '0 1em 0 0', "padding-right": '0.5em'}}>
+                <label style={{margin: '0 1em 0 0', "padding-right": '1em'}}>
                     <Number decimal={day.balance}/>
                 </label>
             </div>
