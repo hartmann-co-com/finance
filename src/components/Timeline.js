@@ -329,7 +329,7 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
                         </div>
                     </div>
                 </div>
-                <label style={{margin: '0 0.7em 0 0', 'flex-grow': 3, "text-align": 'right'}}>
+                <label style={{margin: '0 1em 0 0', 'flex-grow': 3, "text-align": 'right'}}>
                     <Number decimal={record.balance} onChange={event => record.balance = event.target.value} editable={balanceEditable}/>
                 </label>
             </div>
