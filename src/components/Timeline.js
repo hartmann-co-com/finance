@@ -18,6 +18,7 @@ const listStyleNone = {...listStyle, 'list-style-type': 'none'};
 
 const Timeline = () => {
     const [getStore] = state;
+    const summaryNumber = getStore().list && getStore().list.length > 0 ? getStore().list[getStore().list.length - 1].balance : 0;
     // noinspection JSXNamespaceValidation
     return (
         <>
@@ -53,8 +54,8 @@ const Timeline = () => {
             <div style={{'padding-inline-start': '1em'}}>
                 <div style={flexContainer.marginRight}>
                     <label style={{margin: '0 0 0 1em'}}>Summary</label>
-                    <label style={{margin: '0 1em 0 0', "padding-right": '1em'}}>
-                        <Number decimal={getStore().list.reduce((p, c) => p + c.balance, 0)}/>
+                    <label style={{margin: '0 2em 0 0', "padding-right": '2em'}}>
+                        <Number decimal={summaryNumber}/>
                     </label>
                 </div>
             </div>
@@ -259,83 +260,107 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
     // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
     return (
         <>
-            <div style={{display: 'grid', 'grid-template-columns': '33% 33% 33%', padding: '0.25em 0 0.25em 0'}}>
+            <div style={{display: 'grid', 'grid-template-columns': '50% 50%', padding: '0.25em 0 0.25em 0'}}>
                 <div style={{...flexStyle}}>
                     <DisplayDate date={() => date} small/>
                     {accountEditable
-                        ? <input type="text" onChange={event => record.account = event.target.value} value={record.account}/>
+                        ? <input type="text" onChange={event => record.account = event.target.value}
+                                 value={record.account}/>
                         : <label>
                             {record.account}
                         </label>
                     }
                 </div>
-                <div style={{...flexStyle, 'text-align': 'right', 'align-items': 'flex-end'}}>
-                    <div style={{...flexStyle}}>
-                        <div style={{...flexEndStyle, 'text-align': 'left'}}>
-                            {
-                                record.isBank === true
-                                    ? <input type="checkbox" id={`isBank_${record.id}`}
-                                             onChange={event => {
-                                                 record.isBank = Boolean(event.target.checked);
-                                                 if (dispatchEnabled) {
-                                                     dispatch({
-                                                         type: Actions.record,
-                                                         payload: {index: index, value: record}
-                                                     });
-                                                 }
-                                             }}
-                                             checked/>
-                                    : <input type="checkbox" id={`isBank_${record.id}`}
-                                             onChange={event => {
-                                                 record.isBank = Boolean(event.target.checked);
-                                                 if (dispatchEnabled) {
-                                                     dispatch({
-                                                         type: Actions.record,
-                                                         payload: {index: index, value: record}
-                                                     });
-                                                 }
-                                             }}
-                                    />
-                            }
-                            <label for={`isBank_${record.id}`}>is bank account</label>
-                        </div>
-                        <div style={flexEndStyle}>
-                            {
-                                record.isStock === true
-                                    ? <input type="checkbox" id={`ìsStock_${record.id}`}
-                                             onChange={event => {
-                                                 record.isStock = event.target.checked;
-                                                 if (dispatchEnabled) {
-                                                     dispatch({
-                                                         type: Actions.record,
-                                                         payload: {index: index, value: record}
-                                                     });
-                                                 }
-                                             }}
-                                             checked/>
-                                    : <input type="checkbox" id={`ìsStock_${record.id}`}
-                                             onChange={event => {
-                                                 record.isStock = event.target.checked;
-                                                 if (dispatchEnabled) {
-                                                     dispatch({
-                                                         type: Actions.record,
-                                                         payload: {index: index, value: record}
-                                                     });
-                                                 }
-                                             }}
-                                    />
-                            }
-                            <label for={`ìsStock_${record.id}`}>is stock</label>
-                        </div>
-                    </div>
-                </div>
                 <label style={{margin: '0 1em 0 0', 'flex-grow': 3, "text-align": 'right'}}>
-                    <Number decimal={record.balance} onChange={event => record.balance = event.target.value} editable={balanceEditable}/>
+                    <Number decimal={record.balance} onChange={event => record.balance = event.target.value}
+                            editable={balanceEditable}/>
                 </label>
             </div>
+            {
+                record.showOptions === true
+                    ? <div style={{display: 'grid', 'grid-template-columns': '100%', padding: '0.25em 0 0.25em 0'}}>
+                        <Separator><a onClick={() => {
+                            dispatch({
+                                type: Actions.record,
+                                payload: {index: index, value: {...record, showOptions: !record.showOptions}}
+                            });
+                        }} style={{cursor: 'pointer'}}>less</a></Separator>
+                        <div style={{...flexStyle}}>
+                            <label style={{color: '#878787', padding: '0.25em'}}>Options</label>
+                            <div style={{...flexStyle}}>
+                                <div style={{...flexEndStyle, 'text-align': 'left'}}>
+                                    {
+                                        record.isBank === true
+                                            ? <input type="checkbox" id={`isBank_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isBank = Boolean(event.target.checked);
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                                     checked/>
+                                            : <input type="checkbox" id={`isBank_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isBank = Boolean(event.target.checked);
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                            />
+                                    }
+                                    <label for={`isBank_${record.id}`}>is bank account</label>
+                                </div>
+                                <div style={flexEndStyle}>
+                                    {
+                                        record.isStock === true
+                                            ? <input type="checkbox" id={`ìsStock_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isStock = event.target.checked;
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                                     checked/>
+                                            : <input type="checkbox" id={`ìsStock_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isStock = event.target.checked;
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                            />
+                                    }
+                                    <label for={`ìsStock_${record.id}`}>is stock</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    : <Separator><a onClick={() => {
+                        dispatch({
+                            type: Actions.record,
+                            payload: {index: index, value: {...record, showOptions: !record.showOptions}}
+                        });
+                    }} style={{cursor: 'pointer'}}>more</a></Separator>
+            }
         </>
     );
-};
+}
 // endregion common
 
 // region SaveInfos
@@ -384,9 +409,9 @@ export const TimelineLast = () => {
 // region Today
 export const TimelineList = () => {
         // noinspection JSUnusedLocalSymbols
-    const [getStore, dispatch] = state;
+        const [getStore, dispatch] = state;
         const [self, setSelf] = createState({entries: []});
-    // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures,JSUnusedLocalSymbols
+        // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures,JSUnusedLocalSymbols
         return (
             <>
                 <SaveInfos/>

@@ -9,10 +9,12 @@ const Decimal = ({decimal, editable = false, onChange}) => {
         decimal !== null
             ? (
                 editable === true
-                    ? (<><input type="number"
-                                onChange={onChange}
-                                value={decimal}/></>)
-                    : (<>{formatter.format(decimal)}</>)
+                    ? (<><span style={{'font-family': 'courier'}}>
+                        <input type="number"
+                               onChange={onChange}
+                               value={decimal}/></span></>)
+                    : (<><span style={{'font-family': 'courier'}}>
+                        {formatter.format(decimal)}</span></>)
             )
             : null
     );

@@ -61,10 +61,9 @@ export const reducer = (state, action = {}) => {
         case Actions.record: {
             const record = action.payload.value;
             const date = new Date(record.timestamp);
-            const result = {
-                ...state,
-                records: [...state.records].filter(r => r.id !== record.id).concat([record])
-            }
+            const result = {...state}
+            const index = result.records.findIndex(r => r.id === record.id);
+            result.records.splice(index, 1, record);
             result.list.find(y => y.year === date.getUTCFullYear())
                 .months
                 .find(m => m.month === date.getUTCMonth())
