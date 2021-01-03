@@ -361,6 +361,122 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
         </>
     );
 }
+
+const NewRecord = ({record, accountEditable = false, balanceEditable = false, index, dispatchEnabled = false}) => {
+    // noinspection JSUnusedLocalSymbols
+    const [getStore, dispatch] = state;
+    const date = record.timestamp ? new Date(record.timestamp) : new Date();
+
+    const flexStyle = {
+        ...flexContainer.noPadding,
+        'flex-direction': 'column',
+        'align-items': 'flex-start',
+        margin: '0 0 0 1em'
+    };
+    let textRight = {'text-align': 'right'};
+    let textLeft = {'text-align': 'left'};
+    const flexEndStyle = {
+        ...flexContainer.noPadding,
+        'align-items': 'flex-end'
+    }
+    // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
+    return (
+        <>
+            <div style={{display: 'grid', 'grid-template-columns': '50% 50%', padding: '0.25em 0 0.25em 0'}}>
+                <label style={{...textRight}}>Date:</label>
+                <label><DisplayDate date={() => date} small/></label>
+
+                <label style={{...textRight}}>Balance:</label>
+                <label style={{...textLeft, margin: '0 1em 0 0'}}>
+                    <Number decimal={record.balance} onChange={event => record.balance = event.target.value}
+                            editable={balanceEditable}/>
+                </label>
+            </div>
+            {
+                record.showOptions === true
+                    ? <div style={{display: 'grid', 'grid-template-columns': '100%', padding: '0.25em 0 0.25em 0'}}>
+                        <Separator><a onClick={() => {
+                            dispatch({
+                                type: Actions.record,
+                                payload: {index: index, value: {...record, showOptions: !record.showOptions}}
+                            });
+                        }} style={{cursor: 'pointer'}}>less</a></Separator>
+                        <div style={{...flexStyle}}>
+                            <label style={{color: '#878787', padding: '0.25em'}}>Options</label>
+                            <div style={{...flexStyle}}>
+                                <div style={{...flexEndStyle, 'text-align': 'left'}}>
+                                    {
+                                        record.isBank === true
+                                            ? <input type="checkbox" id={`isBank_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isBank = Boolean(event.target.checked);
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                                     checked/>
+                                            : <input type="checkbox" id={`isBank_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isBank = Boolean(event.target.checked);
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                            />
+                                    }
+                                    <label for={`isBank_${record.id}`}>is bank account</label>
+                                </div>
+                                <div style={flexEndStyle}>
+                                    {
+                                        record.isStock === true
+                                            ? <input type="checkbox" id={`ìsStock_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isStock = event.target.checked;
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                                     checked/>
+                                            : <input type="checkbox" id={`ìsStock_${record.id}`}
+                                                     disabled={true}
+                                                     onChange={event => {
+                                                         record.isStock = event.target.checked;
+                                                         if (dispatchEnabled) {
+                                                             dispatch({
+                                                                 type: Actions.record,
+                                                                 payload: {index: index, value: record}
+                                                             });
+                                                         }
+                                                     }}
+                                            />
+                                    }
+                                    <label for={`ìsStock_${record.id}`}>is stock</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    : <Separator><a onClick={() => {
+                        dispatch({
+                            type: Actions.record,
+                            payload: {index: index, value: {...record, showOptions: !record.showOptions}}
+                        });
+                    }} style={{cursor: 'pointer'}}>more</a></Separator>
+            }
+        </>
+    );
+}
 // endregion common
 
 // region SaveInfos
@@ -429,17 +545,17 @@ export const TimelineList = () => {
                                         i % 2 === 0
                                             ? <div style={flexContainer.spaceBetween} className="odd">
                                                 <li style={listStyle}>
-                                                    <Record record={r}
-                                                            onAccountChange={(event, id) => setSelf('entries', e => e.find(v => v.id === id))}
-                                                            balanceEditable={r.balanceEditable}
-                                                            accountEditable={r.accountEditable}/>
+                                                    <NewRecord record={r}
+                                                               onAccountChange={(event, id) => setSelf('entries', e => e.find(v => v.id === id))}
+                                                               balanceEditable={r.balanceEditable}
+                                                               accountEditable={r.accountEditable}/>
                                                 </li>
                                             </div>
                                             : <div style={flexContainer.spaceBetween} className="even">
                                                 <li style={listStyle}>
-                                                    <Record record={r}
-                                                            balanceEditable={r.balanceEditable}
-                                                            accountEditable={r.accountEditable}/>
+                                                    <NewRecord record={r}
+                                                               balanceEditable={r.balanceEditable}
+                                                               accountEditable={r.accountEditable}/>
                                                 </li>
                                             </div>)
                                 }
