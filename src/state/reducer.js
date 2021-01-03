@@ -30,9 +30,9 @@ export const reducer = (state, action = {}) => {
             return {...state, save: {...state.save, saving: action.payload}};
         }
         case Actions.list.update.year: {
-            return {...state, list: state.list
-                    .filter((v, i) => i !== action.payload.index)
-                    .concat([action.payload.value])};
+            const result = {...state};
+            result.list.splice(action.payload.index, 1, action.payload.value);
+            return result;
         }
         case Actions.list.update.month: {
             console.dir(state);
