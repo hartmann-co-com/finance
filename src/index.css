@@ -43,19 +43,22 @@ body, div#root {
 /* endregion shadow */
 
 /* region rows */
-.odd {
-    background-color: rgba(135, 135, 135, 0.25);
+.odd, .even {
+    /*background-color: rgba(135, 135, 135, 0.25);*/
+    border-style: solid;
+    border-color: rgba(135, 135, 135, 0.25);
+    border-width: 1px;
     border-radius: 0.5em;
     padding: 0.5em;
 }
 
-.even {
-    background-color: rgba(235, 235, 235, 0.25);
-    border-radius: 0.5em;
-    padding: 0.5em;
-}
+/*.even {*/
+/*    background-color: rgba(235, 235, 235, 0.25);*/
+/*    border-radius: 0.5em;*/
+/*    padding: 0.5em;*/
+/*}*/
 
-.odd:hover, .even:hover {
-    background-color: rgba(10, 10, 10, 0.2);
+.odd.record:hover, .even.record:hover {
+    background-color: rgba(179, 179, 179, 0.2);
 }
 /* endregion rows */

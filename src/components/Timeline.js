@@ -70,7 +70,7 @@ const Year = ({year, index}) => {
     return (
         <>
             <div style={flexContainer.spaceBetween}>
-                <div style={flexContainer.noPadding}>
+                <div style={{...flexContainer.noPadding, padding: '1em 0 1em 1em'}}>
                     <div onClick={() => {
                         // noinspection JSCheckFunctionSignatures
                         setSelf('expanded', ex => !ex);
@@ -101,7 +101,7 @@ const Month = ({month, year, index}) => {
     return (
         <>
             <div style={flexContainer.spaceBetween}>
-                <div style={flexContainer.noPadding}>
+                <div style={{...flexContainer.noPadding, padding: '1em 0 1em 1em'}}>
                     <div onClick={() => {
                         // noinspection JSCheckFunctionSignatures
                         setSelf('expanded', ex => !ex);
@@ -186,7 +186,7 @@ const Day = ({day, year, month, index}) => {
     return (
         <>
             <div style={flexContainer.spaceBetween}>
-                <div style={flexContainer.noPadding}>
+                <div style={{...flexContainer.noPadding, padding: '1em 0 1em 1em'}}>
                     <div onClick={() => {
                         // noinspection JSCheckFunctionSignatures
                         setSelf('expanded', ex => !ex);
@@ -220,12 +220,12 @@ const Records = ({values, dispatch}) => {
                     values.length > 0
                         ? values.map((r, i) =>
                             i % 2 === 0
-                                ? <div style={flexContainer.spaceBetween} className="odd">
+                                ? <div style={flexContainer.spaceBetween} className="odd record">
                                     <li style={listStyleNone}>
                                         <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
                                 </div>
-                                : <div style={flexContainer.spaceBetween} className="even">
+                                : <div style={flexContainer.spaceBetween} className="even record">
                                     <li style={listStyleNone}>
                                         <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
@@ -259,7 +259,7 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
     // noinspection JSXNamespaceValidation,JSCheckFunctionSignatures
     return (
         <>
-            <div style={{display: 'grid', 'grid-template-columns': '33% 33% 33%'}}>
+            <div style={{display: 'grid', 'grid-template-columns': '33% 33% 33%', padding: '0.25em 0 0.25em 0'}}>
                 <div style={{...flexStyle}}>
                     <DisplayDate date={() => date} small/>
                     {accountEditable
