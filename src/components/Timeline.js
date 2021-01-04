@@ -222,12 +222,12 @@ const Records = ({values, dispatch}) => {
                         ? values.map((r, i) =>
                             i % 2 === 0
                                 ? <div style={flexContainer.spaceBetween} className="odd record">
-                                    <li style={listStyleNone}>
+                                    <li style={{...listStyleNone, margin: '0 0.5em 0 0.5em'}}>
                                         <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
                                 </div>
                                 : <div style={flexContainer.spaceBetween} className="even record">
-                                    <li style={listStyleNone}>
+                                    <li style={{...listStyleNone, margin: '0 0.5em 0 0.5em'}}>
                                         <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
                                 </div>)
