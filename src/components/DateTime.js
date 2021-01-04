@@ -26,9 +26,9 @@ export const DisplayDate = ({date, small}) => {
     // noinspection JSXNamespaceValidation
     return <>
         <div style={style}>
-            <div style={{display: 'flex'}}>{date().toLocaleDateString()}</div>
+            <div style={{display: 'flex', 'font-family': 'courier'}}>{date().toLocaleDateString()}</div>
             <Spacer half={true}/>
-            <div style={{display: 'flex'}}>{date().toLocaleTimeString()}</div>
+            <div style={{display: 'flex', 'font-family': 'courier'}}>{date().toLocaleTimeString()}</div>
         </div>
     </>;
 };
