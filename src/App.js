@@ -5,6 +5,8 @@ import {reducer} from "./state/reducer";
 import {Actions} from "./state/actions";
 import {Spacer} from "./components/Placeholders";
 import {saveList} from "./state/functions";
+import {HBtn} from "./components/btn/HBtn";
+import {DEFAULT, isDarkMode} from "./components/Color";
 
 const stateObject = {
     list: [],
@@ -30,6 +32,8 @@ export const state = [getStore, dispatch];
 function App() {
     //initialize store with default stateObject
     dispatch({type: Actions.init, payload: stateObject});
+
+    document.body.style.backgroundColor = DEFAULT.background;
 
     //check for saved store-value "list" - not working in "onMount"!
     const parsed = JSON.parse(localStorage.getItem("store.list"));
@@ -62,6 +66,13 @@ function App() {
             <FixedHeader/>
 
             <Content>
+                <Spacer/>
+                <HBtn text="hello" outlined/>
+                <HBtn text="test" outlined primary/>
+                <HBtn text="test" outlined primary contained/>
+                <HBtn text="test" outlined secondary/>
+                <HBtn text="test" outlined secondary contained/>
+                <Spacer/>
                 {
                     getStore().displaySideMenu
                         ? <FixedSideMenu><FixedSideMenuContent/></FixedSideMenu>
