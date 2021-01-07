@@ -7,6 +7,7 @@ import {Spacer} from "./components/Placeholders";
 import {saveList} from "./state/functions";
 import {HBtn} from "./components/btn/HBtn";
 import {DEFAULT, isDarkMode} from "./components/Color";
+import './vars.css';
 
 const stateObject = {
     list: [],
@@ -72,6 +73,12 @@ function App() {
                 <HBtn text="test" outlined primary contained/>
                 <HBtn text="test" outlined secondary/>
                 <HBtn text="test" outlined secondary contained/>
+
+                <HBtn text="hello" outlined disabled/>
+                <HBtn text="test" outlined primary disabled/>
+                <HBtn text="test" outlined primary contained disabled/>
+                <HBtn text="test" outlined secondary disabled/>
+                <HBtn text="test" outlined secondary contained disabled/>
                 <Spacer/>
                 {
                     getStore().displaySideMenu

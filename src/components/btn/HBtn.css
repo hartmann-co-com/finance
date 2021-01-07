@@ -14,6 +14,66 @@ a.h-btn
     background-color: rgba(192, 192, 192, 0);
     cursor: pointer;
     border-width: 1px;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+}
+
+button.h-btn.h-white,
+a.h-btn.h-white
+{
+    border-color: var(--white-color);
+    color: var(--white-color);
+}
+
+button.h-btn.h-dark,
+a.h-btn.h-dark
+{
+    border-color: var(--dark-color);
+    color: var(--dark-color);
+}
+
+button.h-btn.h-primary,
+a.h-btn.h-primary
+{
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+button.h-btn.h-secondary,
+a.h-btn.h-secondary
+{
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+/**/
+button.h-btn.h-white.h-btn-contained,
+a.h-btn.h-white.h-btn-contained
+{
+    border-color: var(--white-color);
+    background-color: var(--white-color);
+    color: var(--dark-color);
+}
+
+button.h-btn.h-dark.h-btn-contained,
+a.h-btn.h-dark.h-btn-contained
+{
+    border-color: var(--dark-color);
+    background-color: var(--dark-color);
+    color: var(--white-color);
+}
+
+button.h-btn.h-primary.h-btn-contained,
+a.h-btn.h-primary.h-btn-contained
+{
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+}
+
+button.h-btn.h-secondary.h-btn-contained,
+a.h-btn.h-secondary.h-btn-contained
+{
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
 }
 
 button.h-btn.h-btn-outlined,
@@ -23,3 +83,51 @@ a.h-btn.h-btn-outlined
     border-style: solid;
     padding: 5px 15px;
 }
+
+button.h-btn.h-white:hover,
+a.h-btn.h-white:hover {
+    background-color: var(--white-hover);
+}
+
+button.h-btn.h-dark:hover,
+a.h-btn.h-dark:hover {
+    background-color: var(--dark-hover);
+}
+
+button.h-btn.h-primary:hover,
+a.h-btn.h-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+button.h-btn.h-secondary:hover,
+a.h-btn.h-secondary:hover {
+    background-color: var(--secondary-hover);
+}
+
+button.h-btn.h-btn-contained,
+a.h-btn.h-btn-contained
+{
+    border: none;
+}
+
+button.h-btn:disabled,
+a.h-btn:disabled
+{
+    color: var(--disabled-color);
+    border-color: var(--disabled-color);
+}
+
+button.h-btn:disabled:hover,
+a.h-btn:disabled:hover
+{
+    color: var(--disabled-color);
+    border-color: var(--disabled-color);
+    background-color: transparent;
+}
+
+button.h-btn.h-btn-contained:disabled,
+a.h-btn.h-btn-contained:disabled
+{
+    background-color: var(--disabled-background-color);
+}
+

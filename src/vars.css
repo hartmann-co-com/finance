@@ -1,0 +1,16 @@
+:root {
+    --white-color: rgba(255, 255, 255, 0.85);
+    --dark-color: rgba(0, 0, 0, 0.87);
+
+    --disabled-color: rgba(255, 255, 255, 0.3);
+    --disabled-background-color: rgba(255, 255, 255, 0.12);
+
+    --white-hover: rgba(255, 255, 255, 0.08);
+    --dark-hover: rgba(0, 0, 0, 0.87);
+
+    --primary-color: rgb(144,202,249);
+    --primary-hover: rgba(144, 202, 249, 0.28);
+
+    --secondary-color: rgba(244, 143, 177, 0.5);
+    --secondary-hover: rgba(244, 143, 177, 0.28);
+}
