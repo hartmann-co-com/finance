@@ -3,7 +3,7 @@ import {TimelineList} from "./components/Timeline";
 import {createMemo, createSignal, onCleanup, onMount} from "solid-js";
 import {reducer} from "./state/reducer";
 import {Actions} from "./state/actions";
-import {Spacer} from "./components/Placeholders";
+import {SavePlaceholder, Spacer} from "./components/Placeholders";
 import {saveList} from "./state/functions";
 import {HBtn} from "./components/btn/HBtn";
 import {DEFAULT, isDarkMode} from "./components/Color";
@@ -68,17 +68,46 @@ function App() {
 
             <Content>
                 <Spacer/>
+                <HBtn text="text"/>
+                <HBtn text="text" primary/>
+                <HBtn text="text" secondary/>
+                <HBtn text="text" secondary disabled/>
+                <Spacer/>
+                <HBtn primary href="https://finance.hartmann.co.com">
+                    <label><SavePlaceholder/>Finance</label>
+                </HBtn>
+                <HBtn secondary href="https://finance.hartmann.co.com">
+                    <label><SavePlaceholder/>Finance</label>
+                </HBtn>
+                <HBtn primary disabled href="https://finance.hartmann.co.com">
+                    <label><SavePlaceholder/>Finance</label>
+                </HBtn>
+                <Spacer/>
                 <HBtn text="hello" outlined/>
                 <HBtn text="test" outlined primary/>
                 <HBtn text="test" outlined primary contained/>
                 <HBtn text="test" outlined secondary/>
                 <HBtn text="test" outlined secondary contained/>
-
+                <Spacer/>
                 <HBtn text="hello" outlined disabled/>
                 <HBtn text="test" outlined primary disabled/>
                 <HBtn text="test" outlined primary contained disabled/>
                 <HBtn text="test" outlined secondary disabled/>
                 <HBtn text="test" outlined secondary contained disabled/>
+                <Spacer/>
+                <HBtn outlined><span>value</span></HBtn>
+                <HBtn outlined primary>
+                    <label><SavePlaceholder/>save</label>
+                </HBtn>
+                <HBtn outlined primary contained>
+                    <label><SavePlaceholder/>save</label>
+                </HBtn>
+                <HBtn outlined secondary>
+                    <label><SavePlaceholder/>save</label>
+                </HBtn>
+                <HBtn outlined secondary contained>
+                    <label><SavePlaceholder/>save</label>
+                </HBtn>
                 <Spacer/>
                 {
                     getStore().displaySideMenu

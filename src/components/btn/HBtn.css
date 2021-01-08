@@ -14,6 +14,12 @@ a.h-btn
     background-color: rgba(192, 192, 192, 0);
     cursor: pointer;
     border-width: 1px;
+    border: none;
+    text-decoration: none;
+}
+
+button.h-btn.h-btn-contained,
+a.h-btn.h-btn-contained {
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
 }
 
@@ -111,14 +117,14 @@ a.h-btn.h-btn-contained
 }
 
 button.h-btn:disabled,
-a.h-btn:disabled
+a.h-btn.h-btn-disabled
 {
     color: var(--disabled-color);
     border-color: var(--disabled-color);
 }
 
 button.h-btn:disabled:hover,
-a.h-btn:disabled:hover
+a.h-btn.h-btn-disabled:hover
 {
     color: var(--disabled-color);
     border-color: var(--disabled-color);
@@ -126,8 +132,13 @@ a.h-btn:disabled:hover
 }
 
 button.h-btn.h-btn-contained:disabled,
-a.h-btn.h-btn-contained:disabled
+a.h-btn.h-btn-contained.h-btn-disabled
 {
     background-color: var(--disabled-background-color);
+}
+
+button.h-btn i,
+a.h-btn i {
+    margin-right: 0.5em;
 }
 
