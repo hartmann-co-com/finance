@@ -1,9 +1,19 @@
 // region common
 import {state} from "../App";
 import {EmptySeparator, separator, Separator} from "./separator/Separator";
-import {ArrowDownPlaceholder, ArrowRightPlaceholder, Spacer, Spinner} from "./Placeholders";
+import {
+    AddPlaceholder,
+    ArrowDownPlaceholder,
+    ArrowRightPlaceholder,
+    ClearPlaceholder,
+    DownloadPlaceholder,
+    SavePlaceholder,
+    Spacer,
+    Spinner,
+    UploadPlaceholder
+} from "./Placeholders";
 import {flexContainer} from "../flex";
-import {AddBtn, ClearBtn, DownloadBtn, SaveBtn, UploadBtn} from "./Button";
+import {ClearBtn, SaveBtn} from "./Button";
 import {exportFunc, importFunc} from "../csv/csv";
 import {DisplayDate, MONTHS} from "./DateTime";
 import {createState} from "solid-js";
@@ -11,6 +21,7 @@ import {Actions} from "../state/actions";
 import {clearList, saveList} from "../state/functions";
 import {nanoid} from "nanoid";
 import {Number} from "./Number";
+import {HBtn} from "./btn/HBtn";
 
 const listStyle = {'list-style-type': 'decimal', width: '100%'};
 
@@ -44,18 +55,29 @@ const Timeline = () => {
                         )
                     : <>
                         <div style={flexContainer.noPadding} className="padding-inline-start">
-                            <label>no entries</label>
+                            <HBtn disabled>
+                                <label>no entries</label>
+                            </HBtn>
                             <Spacer/>
-                            <UploadBtn onClick={(event) => importFunc(event)}/>
+                            <HBtn outlined primary>
+                                <label>
+                                    <UploadPlaceholder/>import
+                                    <input onClick={event => importFunc(event)}
+                                           style={{display: 'none'}}
+                                           type="file"/>
+                                </label>
+                            </HBtn>
                         </div>
                     </>
             }
             <EmptySeparator/>
             <div style={{'padding-inline-start': '1em'}}>
                 <div style={flexContainer.marginRight}>
-                    <label style={{margin: '0 0 0 1em'}}>Summary</label>
+                    <label style={{margin: '0 0 0 1em'}}>
+                        <HBtn><label>Summary</label></HBtn>
+                    </label>
                     <label style={{margin: '0 2em 0 0', "padding-right": '2em'}}>
-                        <Number decimal={summaryNumber}/>
+                        <HBtn><Number decimal={summaryNumber}/></HBtn>
                     </label>
                 </div>
             </div>
@@ -72,21 +94,25 @@ const Year = ({year, index}) => {
         <>
             <div style={flexContainer.spaceBetween}>
                 <div style={{...flexContainer.noPadding, padding: '1em 0 1em 1em'}}>
-                    <div onClick={() => {
+                    <HBtn onClick={() => {
                         // noinspection JSCheckFunctionSignatures
                         setSelf('expanded', ex => !ex);
                         year.expanded = self.expanded;
                         dispatch({type: Actions.list.update.year, payload: {index: index, value: year}});
                     }}>
-                        {self.expanded === false && <ArrowRightPlaceholder/>}
-                        {self.expanded === true && <ArrowDownPlaceholder/>}
-                    </div>
-                    <label
-                        style={{margin: '0 0 0 1em'}}>{year.year}</label>
+                        <label>
+                            {self.expanded === false && <ArrowRightPlaceholder/>}
+                            {self.expanded === true && <ArrowDownPlaceholder/>}
+                            {year.year}
+                        </label>
+                    </HBtn>
                 </div>
 
+
                 <label style={{margin: '0 1.5em 0 0', "padding-right": '1.5em'}}>
-                    <Number decimal={year.balance}/>
+                    <HBtn>
+                        <Number decimal={year.balance}/>
+                    </HBtn>
                 </label>
             </div>
             {self.expanded === true && <Months values={year.months} year={year.year}/>}
@@ -103,7 +129,7 @@ const Month = ({month, year, index}) => {
         <>
             <div style={flexContainer.spaceBetween}>
                 <div style={{...flexContainer.noPadding, padding: '1em 0 1em 1em'}}>
-                    <div onClick={() => {
+                    <HBtn onClick={() => {
                         // noinspection JSCheckFunctionSignatures
                         setSelf('expanded', ex => !ex);
                         month.expanded = self.expanded;
@@ -112,14 +138,18 @@ const Month = ({month, year, index}) => {
                             payload: {index: index, year: year, value: {...month}}
                         });
                     }}>
-                        {self.expanded === false && <ArrowRightPlaceholder/>}
-                        {self.expanded === true && <ArrowDownPlaceholder/>}
-                    </div>
-                    <label
-                        style={{margin: '0 0 0 1em'}}>{MONTHS[month.month]}</label>
+                        <label>
+                            {self.expanded === false && <ArrowRightPlaceholder/>}
+                            {self.expanded === true && <ArrowDownPlaceholder/>}
+                            {MONTHS[month.month]}
+                        </label>
+                    </HBtn>
+
                 </div>
                 <label style={{margin: '0 1em 0 0', "padding-right": '1.5em'}}>
-                    <Number decimal={month.balance}/>
+                    <HBtn>
+                        <Number decimal={month.balance}/>
+                    </HBtn>
                 </label>
             </div>
             {self.expanded === true && <Days values={month.days} year={year} month={month.month}/>}
@@ -188,7 +218,7 @@ const Day = ({day, year, month, index}) => {
         <>
             <div style={flexContainer.spaceBetween}>
                 <div style={{...flexContainer.noPadding, padding: '1em 0 1em 1em'}}>
-                    <div onClick={() => {
+                    <HBtn onClick={() => {
                         // noinspection JSCheckFunctionSignatures
                         setSelf('expanded', ex => !ex);
                         day.expanded = self.expanded;
@@ -197,14 +227,17 @@ const Day = ({day, year, month, index}) => {
                             payload: {index: index, year: year, month: month, value: {...day}}
                         });
                     }}>
-                        {self.expanded === false && <ArrowRightPlaceholder/>}
-                        {self.expanded === true && <ArrowDownPlaceholder/>}
-                    </div>
-                    <label
-                        style={{margin: '0 0 0 1em'}}>Day {day.day}</label>
+                        <label>
+                            {self.expanded === false && <ArrowRightPlaceholder/>}
+                            {self.expanded === true && <ArrowDownPlaceholder/>}
+                            Day {day.day}
+                        </label>
+                    </HBtn>
                 </div>
                 <label style={{margin: '0 1em 0 0', "padding-right": '1em'}}>
-                    <Number decimal={day.balance}/>
+                    <HBtn>
+                        <Number decimal={day.balance}/>
+                    </HBtn>
                 </label>
             </div>
             {self.expanded === true && <Records values={day.records} dispatch={true}/>}
@@ -272,8 +305,10 @@ const Record = ({record, accountEditable = false, balanceEditable = false, index
                     }
                 </div>
                 <label style={{margin: '0 1em 0 0', 'flex-grow': 3, "text-align": 'right'}}>
-                    <Number decimal={record.balance} onChange={event => record.balance = event.target.value}
-                            editable={balanceEditable}/>
+                    <HBtn>
+                        <Number decimal={record.balance} onChange={event => record.balance = event.target.value}
+                                editable={balanceEditable}/>
+                    </HBtn>
                 </label>
             </div>
             {
@@ -481,19 +516,28 @@ export const SaveInfos = () => {
             <div style={flexContainer.end}>
                 {getStore().save.saving ? <Spinner/> : null}
                 <Spacer/>
-                {
-                    getStore().save.iso
-                        ? <div
-                            style={{...flexContainer.noPadding, "flex-direction": 'column', "align-items": 'flex-start'}}>
-                            <label style={{"font-size": 'x-small'}}>Last saved on:</label>
-                            <DisplayDate date={() => getStore().save.iso}/>
-                        </div>
-                        : <div>nothing saved</div>
-                }
+                <HBtn disabled>
+                    {
+                        getStore().save.iso
+                            ?
+                            <div style={{
+                                ...flexContainer.noPadding,
+                                "flex-direction": 'column',
+                                "align-items": 'flex-start'
+                            }}>
+                                <label style={{"font-size": 'x-small'}}>Last saved on:</label>
+                                <DisplayDate date={() => getStore().save.iso}/>
+                            </div>
+                            : <div>nothing saved</div>
+                    }
+                </HBtn>
                 <Spacer/>
-                <SaveBtn onClick={() => saveList()}/>
-                <Spacer/>
-                <ClearBtn onClick={() => clearList()}/>
+                <HBtn outlined secondary onClick={() => saveList()}>
+                    <label><SavePlaceholder/>save now</label>
+                </HBtn>
+                <HBtn outlined secondary onClick={() => clearList()}>
+                    <label><ClearPlaceholder/>clear</label>
+                </HBtn>
             </div>
         </>
     );
@@ -564,7 +608,7 @@ export const TimelineList = () => {
                     </>
                 }
                 <div style={flexContainer}>
-                    <AddBtn text="Add record" onClick={() => {
+                    <HBtn outlined primary onClick={() => {
                         console.log("add record");
                         const newRecord = {
                             id: nanoid(),
@@ -579,14 +623,19 @@ export const TimelineList = () => {
                         };
                         // noinspection JSCheckFunctionSignatures
                         setSelf('entries', e => [...e, newRecord]);
-                    }}/>
+                    }}>
+                        <label><AddPlaceholder/>add record</label>
+                    </HBtn>
                     <Spacer/>
-                    <AddBtn text="Add day" onClick={() => {
+                    <HBtn outlined primary onClick={() => {
                         console.log("add day");
-
-                    }}/>
+                    }}>
+                        <label><AddPlaceholder/>add day</label>
+                    </HBtn>
                     <Spacer/>
-                    <DownloadBtn onClick={() => exportFunc()}/>
+                    <HBtn outlined primary onClick={() => exportFunc()}>
+                        <label><DownloadPlaceholder/>export</label>
+                    </HBtn>
                 </div>
             </>
         );

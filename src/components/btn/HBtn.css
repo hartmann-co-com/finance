@@ -26,15 +26,15 @@ a.h-btn.h-btn-contained {
 button.h-btn.h-white,
 a.h-btn.h-white
 {
-    border-color: var(--white-color);
-    color: var(--white-color);
+    border-color: var(--dark-color);
+    color: var(--dark-color);
 }
 
 button.h-btn.h-dark,
 a.h-btn.h-dark
 {
-    border-color: var(--dark-color);
-    color: var(--dark-color);
+    border-color: var(--white-color);
+    color: var(--white-color);
 }
 
 button.h-btn.h-primary,
@@ -92,12 +92,12 @@ a.h-btn.h-btn-outlined
 
 button.h-btn.h-white:hover,
 a.h-btn.h-white:hover {
-    background-color: var(--white-hover);
+    background-color: var(--dark-hover);
 }
 
 button.h-btn.h-dark:hover,
 a.h-btn.h-dark:hover {
-    background-color: var(--dark-hover);
+    background-color: var(--white-hover);
 }
 
 button.h-btn.h-primary:hover,
@@ -116,25 +116,44 @@ a.h-btn.h-btn-contained
     border: none;
 }
 
-button.h-btn:disabled,
-a.h-btn.h-btn-disabled
+button.h-btn.h-white:disabled,
+a.h-btn.h-white.h-btn-disabled
 {
-    color: var(--disabled-color);
-    border-color: var(--disabled-color);
+    color: var(--white-disabled-color);
+    border-color: var(--white-disabled-color);
 }
 
-button.h-btn:disabled:hover,
-a.h-btn.h-btn-disabled:hover
+button.h-btn.h-dark:disabled,
+a.h-btn.h-dark.h-btn-disabled
 {
-    color: var(--disabled-color);
-    border-color: var(--disabled-color);
+    color: var(--dark-disabled-color);
+    border-color: var(--dark-disabled-background-color);
+}
+
+button.h-btn.h-white:disabled:hover,
+a.h-btn.h-white.h-btn-disabled:hover
+{
+    color: var(--white-disabled-color);
     background-color: transparent;
 }
 
-button.h-btn.h-btn-contained:disabled,
-a.h-btn.h-btn-contained.h-btn-disabled
+button.h-btn.h-white.h-btn-contained:disabled,
+a.h-btn.h-white.h-btn-contained.h-btn-disabled
 {
-    background-color: var(--disabled-background-color);
+    background-color: var(--white-disabled-background-color);
+}
+
+button.h-btn.h-dark:disabled:hover,
+a.h-btn.h-dark.h-btn-disabled:hover
+{
+    color: var(--dark-disabled-color);
+    background-color: transparent;
+}
+
+button.h-btn.h-dark.h-btn-contained:disabled,
+a.h-btn.h-dark.h-btn-contained.h-btn-disabled
+{
+    background-color: var(--dark-disabled-background-color);
 }
 
 button.h-btn i,

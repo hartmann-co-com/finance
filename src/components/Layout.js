@@ -1,5 +1,6 @@
 import {EuroPlaceholder, FileExportPlaceholder, FileImportPlaceholder, Spacer} from "./Placeholders";
 import {flexContainer} from "../flex";
+import {HBtn} from "./btn/HBtn";
 
 // region Header
 export const Header = () => {
@@ -7,10 +8,9 @@ export const Header = () => {
     // noinspection JSXNamespaceValidation
     return (
         <div style={flexContainer} class="shadow">
-            {/*<SideMenuBtn onClick={() => dispatch({type: Actions.sideMenu, payload: !getStore().displaySideMenu})}/>*/}
-            <EuroPlaceholder/>
-            <Spacer/>
-            <label>Finance</label>
+            <HBtn primary>
+                <label><EuroPlaceholder/>Finance</label>
+            </HBtn>
         </div>
     );
 };

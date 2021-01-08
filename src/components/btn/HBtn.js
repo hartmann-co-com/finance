@@ -15,9 +15,11 @@ export const HBtn = props => {
     } else if (props.secondary === true) {
         colorStyle = {...colorStyle, color: secondaryColor};
         css.push('h-secondary');
-    } else if (isWhiteMode()) {
+    }
+
+    if (isDarkMode()) {
         css.push('h-dark');
-    } else if (isDarkMode()) {
+    } else {
         css.push('h-white');
     }
 
@@ -36,6 +38,7 @@ export const HBtn = props => {
         // noinspection JSXNamespaceValidation
         return (
             <a href={disabled ? '#' : props.href}
+               onClick={props.onClick}
                className={css.join(' ')}
                style={disabled ? null : colorStyle}>
                 {
@@ -53,7 +56,11 @@ export const HBtn = props => {
 
     // noinspection JSXNamespaceValidation
     return (
-        <button disabled={props.disabled} className={css.join(' ')} type="button" style={disabled ? null : colorStyle}>
+        <button disabled={props.disabled}
+                onClick={props.onClick}
+                className={css.join(' ')}
+                type="button"
+                style={disabled ? null : colorStyle}>
             {hasText ? <span>{props.text}</span> : (props.children ? props.children : null)}
         </button>
     );
