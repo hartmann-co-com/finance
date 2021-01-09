@@ -22,6 +22,7 @@ import {clearList, saveList} from "../state/functions";
 import {nanoid} from "nanoid";
 import {Number} from "./Number";
 import {HBtn} from "./btn/HBtn";
+import {isDarkMode} from "./Color";
 
 const listStyle = {'list-style-type': 'decimal', width: '100%'};
 
@@ -29,6 +30,15 @@ const listStyleNone = {...listStyle, 'list-style-type': 'none'};
 
 const Timeline = () => {
     const [getStore] = state;
+    const cssOdd = ['odd'];
+    const cssEven = ['even'];
+    if (isDarkMode()) {
+        cssOdd.push('h-dark');
+        cssEven.push('h-dark');
+    } else {
+        cssOdd.push('h-white');
+        cssEven.push('h-white');
+    }
     const summaryNumber = getStore().list && getStore().list.length > 0 ? getStore().list[getStore().list.length - 1].balance : 0;
     // noinspection JSXNamespaceValidation
     return (
@@ -40,12 +50,12 @@ const Timeline = () => {
                         .map((y, i) => <ul style={{'padding-inline-start': '1em'}}>
                                 {
                                     i % 2 === 0
-                                        ? <div style={flexContainer.marginRight} className="odd">
+                                        ? <div style={flexContainer.marginRight} className={cssOdd.join(' ')}>
                                             <li style={listStyleNone}>
                                                 <Year year={y} index={i}/>
                                             </li>
                                         </div>
-                                        : <div style={flexContainer.marginRight} className="even">
+                                        : <div style={flexContainer.marginRight} className={cssEven.join(' ')}>
                                             <li style={listStyleNone}>
                                                 <Year year={y} index={i}/>
                                             </li>
@@ -158,6 +168,15 @@ const Month = ({month, year, index}) => {
 };
 
 const Months = ({values, year}) => {
+    const cssOdd = ['odd'];
+    const cssEven = ['even'];
+    if (isDarkMode()) {
+        cssOdd.push('h-dark');
+        cssEven.push('h-dark');
+    } else {
+        cssOdd.push('h-white');
+        cssEven.push('h-white');
+    }
     return (
         <>
             {
@@ -165,12 +184,12 @@ const Months = ({values, year}) => {
                     ? values.map((m, i) => <ul style={{'padding-inline-start': '1em'}}>
                         {
                             i % 2 === 0
-                                ? <div style={flexContainer.spaceBetween} className="odd">
+                                ? <div style={flexContainer.spaceBetween} className={cssOdd.join(' ')}>
                                     <li style={listStyleNone}>
                                         <Month month={m} year={year} index={i}/>
                                     </li>
                                 </div>
-                                : <div style={flexContainer.spaceBetween} className="even">
+                                : <div style={flexContainer.spaceBetween} className={cssEven.join(' ')}>
                                     <li style={listStyleNone}>
                                         <Month month={m} year={year} index={i}/>
                                     </li>
@@ -184,6 +203,15 @@ const Months = ({values, year}) => {
 };
 
 const Days = ({values, year, month}) => {
+    const cssOdd = ['odd'];
+    const cssEven = ['even'];
+    if (isDarkMode()) {
+        cssOdd.push('h-dark');
+        cssEven.push('h-dark');
+    } else {
+        cssOdd.push('h-white');
+        cssEven.push('h-white');
+    }
     return (
         <>
             {
@@ -191,12 +219,12 @@ const Days = ({values, year, month}) => {
                     ? values.map((d, i) => <ul style={{'padding-inline-start': '1em'}}>
                         {
                             i % 2 === 0
-                                ? <div style={flexContainer.spaceBetween} className="odd">
+                                ? <div style={flexContainer.spaceBetween} className={cssOdd.join(' ')}>
                                     <li style={listStyleNone}>
                                         <Day day={d} year={year} month={month} index={i}/>
                                     </li>
                                 </div>
-                                : <div style={flexContainer.spaceBetween} className="even">
+                                : <div style={flexContainer.spaceBetween} className={cssEven.join(' ')}>
                                     <li style={listStyleNone}>
                                         <Day day={d} year={year} month={month} index={i}/>
                                     </li>
@@ -246,6 +274,15 @@ const Day = ({day, year, month, index}) => {
 };
 
 const Records = ({values, dispatch}) => {
+    const cssOdd = ['odd', 'record'];
+    const cssEven = ['even', 'record'];
+    if (isDarkMode()) {
+        cssOdd.push('h-dark');
+        cssEven.push('h-dark');
+    } else {
+        cssOdd.push('h-white');
+        cssEven.push('h-white');
+    }
     // noinspection JSXNamespaceValidation
     return (
         <>
@@ -254,12 +291,12 @@ const Records = ({values, dispatch}) => {
                     values.length > 0
                         ? values.map((r, i) =>
                             i % 2 === 0
-                                ? <div style={flexContainer.spaceBetween} className="odd record">
+                                ? <div style={flexContainer.spaceBetween} className={cssOdd.join(' ')}>
                                     <li style={{...listStyleNone, margin: '0 0.5em 0 0.5em'}}>
                                         <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>
                                 </div>
-                                : <div style={flexContainer.spaceBetween} className="even record">
+                                : <div style={flexContainer.spaceBetween} className={cssEven.join(' ')}>
                                     <li style={{...listStyleNone, margin: '0 0.5em 0 0.5em'}}>
                                         <Record record={r} index={i} dispatchEnabled={dispatch}/>
                                     </li>

@@ -43,10 +43,19 @@ body, div#root {
 /* endregion shadow */
 
 /* region rows */
-.odd, .even {
+.odd.h-white, .even.h-white {
     /*background-color: rgba(135, 135, 135, 0.25);*/
     border-style: solid;
-    border-color: rgba(135, 135, 135, 0.25);
+    border-color: var(--white-disabled-color);
+    border-width: 1px;
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+.odd.h-dark, .even.h-dark {
+    /*background-color: rgba(135, 135, 135, 0.25);*/
+    border-style: solid;
+    border-color: var(--dark-disabled-color);
     border-width: 1px;
     border-radius: 0.5em;
     padding: 0.5em;
